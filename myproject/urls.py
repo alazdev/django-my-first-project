@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.urls import path
 from bukus import views
+
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.home, name='index'),
+    path('buku', views.index, name='index')
 ]

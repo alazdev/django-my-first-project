@@ -3,34 +3,19 @@ from django.contrib.auth.models import User
 
 class Buku(models.Model):
     judul = models.CharField(max_length=30)
-    jumlah_halaman = models.IntegerField(max_length=8)
+    jumlah_halaman = models.IntegerField()
     penerbit = models.CharField(max_length=30)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(null=True)
-    deleted_at = models.DateTimeField(null=True)
-    created_by = models.ForeignKey(User, related_name='bukus', on_delete=models.CASCADE)
-    updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.CASCADE)
-    updated_by = models.ForeignKey(User, null=True, related_name='bukus', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.judul
 
 class Peminjaman(models.Model):
     tanggal = models.DateTimeField()
-    jumlah_hari = models.IntegerField(max_length=3)
-    buku_id = models.ForeignKey(related_name='peminjamans')
-    user_id = models.ForeignKey(related_name='peminjamans')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(null=True)
-    deleted_at = models.DateTimeField(null=True)
-    created_by = models.ForeignKey(User, related_name='peminjaman', on_delete=models.CASCADE)
-    updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.CASCADE)
-    updated_by = models.ForeignKey(User, null=True, related_name='peminjaman', on_delete=models.CASCADE)
+    jumlah_hari = models.IntegerField()
+    buku_id = models.ForeignKey('Buku', related_name='peminjamans', on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, related_name='peminjamans', on_delete=models.CASCADE)
 
 class Pengembalian(models.Model):
     tanggal = models.DateTimeField()
-    peminjaman_id = models.ForeignKey(related_name='pengembalian')
+    peminjaman_id = models.ForeignKey(Peminjaman, related_name='pengembalian', on_delete=models.CASCADE)
     denda = models.BigIntegerField(null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(null=True)
-    deleted_at = models.DateTimeField(null=True)
-    created_by = models.ForeignKey(User, related_name='pengembalian', on_delete=models.CASCADE)
-    updated_by = models.ForeignKey(User, null=True, related_name='+', on_delete=models.CASCADE)
-    updated_by = models.ForeignKey(User, null=True, related_name='pengembalian', on_delete=models.CASCADE)
