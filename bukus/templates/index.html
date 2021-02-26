@@ -1,40 +1,84 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Buku</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+    <title>Daftar Buku</title>
 </head>
 
 <body>
+    <div class="modal fade" id="tambahData" tabindex="-1" aria-labelledby="tambahDataLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="tambahDataLabel"><b>Form | </b>Tambah Data</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form class="post-form" action="./buku/create" method="post">
+                {% csrf_token %}
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="judul" class="form-label">Judul</label>
+                    <input type="text" name="judul" id="judul" class="form-control" aria-describedby="judulHelpBlock" maxlength="30" required>
+                    <div id="judulHelpBlock" class="form-text d-none">
+                        Maksimal panjang karakter adalah 30.
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="jumlah-halaman" class="form-label">Jumlah Halaman</label>
+                    <input type="number" name="jumlah_halaman" id="jumlah-halaman" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="penerbit" class="form-label">Penerbit</label>
+                    <input type="text" name="penerbit" id="penerbit" class="form-control" aria-describedby="penerbitHelpBlock" maxlength="30" required>
+                    <div id="penerbitHelpBlock" class="form-text d-none">
+                        Maksimal panjang karakter adalah 30.
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Keluar</button>
+              <button type="submit" class="btn btn-primary">Kirim</button>
+            </div>
+        </form>
+          </div>
+        </div>
+      </div>
     <div class="container">
-        <h1 class="display-4">Daftar Nama-Nama Buku di Perpustakaan</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Judul</th>
-                    <th scope="col">Jumlah Halaman</th>
-                    <th scope="col">Penerbit</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for buku in bukus %}
-                <tr>
-                    <td>{{ buku.judul }}</td>
-                    <td>{{ buku.jumlah_halaman }}</td>
-                    <td>{{ buku.penerbit }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        {% include 'layout/navigation.html' %}
+        <div class="container row">
+            <h1 class="display-4">Daftar Nama-Nama Buku di Perpustakaan</h1>
+            <div class="col">
+                <button type="button" class="btn btn-primary col-lg-2 col-sm-12 float-end" data-bs-toggle="modal" data-bs-target="#tambahData">Tambah Data</button>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Judul</th>
+                        <th scope="col">Jumlah Halaman</th>
+                        <th scope="col">Penerbit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for buku in bukus %}
+                    <tr>
+                        <td>{{ buku.judul }}</td>
+                        <td>{{ buku.jumlah_halaman }}</td>
+                        <td>{{ buku.penerbit }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
-        crossorigin="anonymous"></script>
+    {% include 'layout/footer.html' %}
 </body>
 
 </html>

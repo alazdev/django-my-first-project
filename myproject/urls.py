@@ -18,5 +18,6 @@ from bukus import views
 
 urlpatterns = [
     path('', views.home, name='index'),
-    path('buku', views.index, name='index')
+    path('buku', views.index, name='buku'),
+    path('buku/create', views.insert, name='buku-create'),
 ]
