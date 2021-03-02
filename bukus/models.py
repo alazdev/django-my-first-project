@@ -2,9 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Buku(models.Model):
-    judul = models.CharField(max_length=30)
-    jumlah_halaman = models.IntegerField()
-    penerbit = models.CharField(max_length=30)
+    id = models.AutoField(primary_key=True,)
+    judul = models.CharField('Judul', max_length=30)
+    jumlah_halaman = models.IntegerField('Jumlah Halaman')
+    penerbit = models.CharField('Penerbit', max_length=30)
 
     def __str__(self):
         return self.judul

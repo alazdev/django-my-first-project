@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}Buku - Edit : {{ data.judul }}{% endblock %}
+{% block content %}
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="tambahDataLabel"><b>Form | </b>Edit Buku</h5>
+    </div>
+    <form class="post-form" action="/buku/update/{{ data.id }}" method="post">
+        {% csrf_token %}
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="judul" class="form-label">Judul</label>
+                <input type="text" name="judul" value="{{ data.judul }}" id="judul" class="form-control"
+                    aria-describedby="judulHelpBlock" maxlength="30" required>
+                <div id="judulHelpBlock" class="form-text d-none">
+                    Maksimal panjang karakter adalah 30.
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="jumlah-halaman" class="form-label">Jumlah Halaman</label>
+                <input type="number" name="jumlah_halaman" value="{{ data.jumlah_halaman }}" id="jumlah-halaman"
+                    class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="penerbit" class="form-label">Penerbit</label>
+                <input type="text" name="penerbit" value="{{ data.penerbit }}" id="penerbit" class="form-control"
+                    aria-describedby="penerbitHelpBlock" maxlength="30" required>
+                <div id="penerbitHelpBlock" class="form-text d-none">
+                    Maksimal panjang karakter adalah 30.
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="/../buku" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</a>
+            <button type="submit" class="btn btn-primary">Ubah</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

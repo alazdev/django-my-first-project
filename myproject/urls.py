@@ -19,5 +19,9 @@ from bukus import views
 urlpatterns = [
     path('', views.home, name='index'),
     path('buku', views.index, name='buku'),
+    path('buku/testmodel_data', views.TestModelListJson, name="testmodel_list_json"),
     path('buku/create', views.insert, name='buku-create'),
+    path('buku/edit/<str:id>', views.edit),
+    path('buku/update/<str:id>', views.update),
+    path('buku/delete/<str:id>', views.destroy),
 ]
